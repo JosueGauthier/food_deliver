@@ -102,54 +102,98 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: Dimensions.height10,
         ),
 
-        Container(
-          height: 700,
-          child: ListView.builder(
-              //shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(
-                      left: Dimensions.width20,
-                      right: Dimensions.width20,
-                      bottom: Dimensions.height15),
-                  child: Row(
-                      //crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //! image section
-                        Container(
-                          height: 120,
-                          width: 120,
+        ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
+                    bottom: Dimensions.height15),
+                child: Row(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //! image section
+                      Container(
+                        height: Dimensions.listviewimgSize,
+                        width: Dimensions.listviewimgSize,
+                        decoration: BoxDecoration(
+                            color: Colors.amber,
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/image/food0.png")),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.width20)),
+                      ),
+
+                      //! text section
+
+                      //? expanded widget force container to take all the available space
+                      Expanded(
+                        child: Container(
+                          height: Dimensions.listviewTextHeigth,
                           decoration: BoxDecoration(
-                              color: Colors.amber,
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage("assets/image/food0.png")),
-                              borderRadius:
-                                  BorderRadius.circular(Dimensions.width20)),
-                        ),
-
-                        //! text section
-
-                        //? expanded widget force container to take all the available space
-                        Expanded(
-                          child: Container(
-                            height: 100,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                color: Colors.blueGrey,
-                                borderRadius: BorderRadius.only(
-                                    topRight:
-                                        Radius.circular(Dimensions.height20),
-                                    bottomRight:
-                                        Radius.circular(Dimensions.height20))),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topRight:
+                                      Radius.circular(Dimensions.height20),
+                                  bottomRight:
+                                      Radius.circular(Dimensions.height20))),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: Dimensions.width10,
+                                right: Dimensions.width10),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                BigText(
+                                    text:
+                                        "Nutritious fruit from Radjastan all demand is accepted"),
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                SmallText(
+                                    text:
+                                        "The Gum Nebula (Gum 12) is an emission nebula that extends across 36° in the southern"),
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconAndTextWidget(
+                                        icon: Icons.circle,
+                                        text: "Normal",
+                                        iconcolor: Colors.amber),
+                                    SizedBox(
+                                      width: Dimensions.width20,
+                                    ),
+                                    IconAndTextWidget(
+                                        icon: Icons.location_pin,
+                                        text: "1.7 km",
+                                        iconcolor: AppColors.mainColor),
+                                    SizedBox(
+                                      width: Dimensions.width20,
+                                    ),
+                                    IconAndTextWidget(
+                                        icon: Icons.lock_clock,
+                                        text: "16 min",
+                                        iconcolor: Colors.pink),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        )
-                      ]),
-                );
-              }),
-        ),
+                        ),
+                      )
+                    ]),
+              );
+            }),
       ],
     );
   }

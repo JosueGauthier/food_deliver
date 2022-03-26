@@ -23,6 +23,8 @@ class Dimensions {
   static double height12 = screenHeight / 70;
   static double height15 = screenHeight / 56.26;
   static double height45 = screenHeight / 18.75;
+  static double height25 = screenHeight / (844 / 25);
+  static double height100 = screenHeight / (844 / 100);
   static double height1dot2 = screenHeight / 703.33;
 
   static double width10 = screenWidth / 41;
@@ -37,4 +39,8 @@ class Dimensions {
 
   static double radius20 = screenHeight / 42.2;
   static double radius30 = screenHeight / 28.1;
+
+  // list view size
+  static double listviewimgSize = screenWidth / 3.25;
+  static double listviewTextHeigth = screenWidth / 3.9;
 }

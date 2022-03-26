@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   dots_indicator: ^2.1.0
+  get: ^4.6.1
   flutter:
     sdk: flutter
 

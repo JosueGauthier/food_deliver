@@ -43,7 +43,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //sliderSection
+        //! sliderSection
         Container(
           //color: Colors.blue,
           height: Dimensions.pageViewheight,
@@ -69,9 +69,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
 
-        //Popular items
+        //!Popular items
         SizedBox(
-          height: Dimensions.height30,
+          height: Dimensions.height20,
         ),
         Container(
           margin: EdgeInsets.only(left: Dimensions.width30),
@@ -99,30 +99,54 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ]),
         ),
         SizedBox(
-          height: Dimensions.height20,
+          height: Dimensions.height10,
         ),
+
         Container(
           height: 700,
           child: ListView.builder(
-              shrinkWrap: true,
-              physics: AlwaysScrollableScrollPhysics(),
+              //shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: 10,
               itemBuilder: (context, index) {
                 return Container(
                   margin: EdgeInsets.only(
-                      left: Dimensions.width20, right: Dimensions.width20),
-                  child: Row(children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                          color: Colors.amber,
-                          image: DecorationImage(
-                              image: AssetImage("assets/image/food0.png")),
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.width20)),
-                    )
-                  ]),
+                      left: Dimensions.width20,
+                      right: Dimensions.width20,
+                      bottom: Dimensions.height15),
+                  child: Row(
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        //! image section
+                        Container(
+                          height: 120,
+                          width: 120,
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage("assets/image/food0.png")),
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.width20)),
+                        ),
+
+                        //! text section
+
+                        //? expanded widget force container to take all the available space
+                        Expanded(
+                          child: Container(
+                            height: 100,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                color: Colors.blueGrey,
+                                borderRadius: BorderRadius.only(
+                                    topRight:
+                                        Radius.circular(Dimensions.height20),
+                                    bottomRight:
+                                        Radius.circular(Dimensions.height20))),
+                          ),
+                        )
+                      ]),
                 );
               }),
         ),

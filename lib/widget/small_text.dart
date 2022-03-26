@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:food_deliver/utils/colors.dart';
 
+import '../utils/dimensions.dart';
+
 class SmallText extends StatelessWidget {
   Color? color;
   final String text;
@@ -22,8 +24,8 @@ class SmallText extends StatelessWidget {
       style: TextStyle(
         color: color,
         fontFamily: 'Roboto',
-        fontSize: size,
-        height: height,
+        fontSize: Dimensions.height12,
+        height: Dimensions.height1dot2,
       ),
     );
   }

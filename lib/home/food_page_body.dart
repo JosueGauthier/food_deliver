@@ -43,6 +43,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        //sliderSection
         Container(
           //color: Colors.blue,
           height: Dimensions.pageViewheight,
@@ -53,7 +54,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 return _buildPageItem(position);
               }),
         ),
-        new DotsIndicator(
+
+        //Dots section
+        DotsIndicator(
           dotsCount: 5,
           position: _currentPagevalue,
           decorator: DotsDecorator(
@@ -64,6 +67,64 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             activeShape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           ),
+        ),
+
+        //Popular items
+        SizedBox(
+          height: Dimensions.height30,
+        ),
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.width30),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            BigText(text: "Popular"),
+            SizedBox(
+              width: Dimensions.width10,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 3),
+              child: BigText(
+                text: ".",
+                color: Color.fromARGB(255, 184, 183, 179),
+              ),
+            ),
+            SizedBox(
+              width: Dimensions.width10,
+            ),
+            Container(
+              child: SmallText(
+                text: "Food pairing",
+                color: Color.fromARGB(255, 184, 183, 179),
+              ),
+            ),
+          ]),
+        ),
+        SizedBox(
+          height: Dimensions.height20,
+        ),
+        Container(
+          height: 700,
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: AlwaysScrollableScrollPhysics(),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.only(
+                      left: Dimensions.width20, right: Dimensions.width20),
+                  child: Row(children: [
+                    Container(
+                      height: 120,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          color: Colors.amber,
+                          image: DecorationImage(
+                              image: AssetImage("assets/image/food0.png")),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.width20)),
+                    )
+                  ]),
+                );
+              }),
         ),
       ],
     );

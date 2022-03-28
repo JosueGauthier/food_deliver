@@ -8,7 +8,7 @@ class SmallText extends StatelessWidget {
   final String text;
   double size;
   double height;
-  TextOverflow overFlow;
+  //TextOverflow overFlow;
 
   SmallText({
     Key? key,
@@ -16,19 +16,19 @@ class SmallText extends StatelessWidget {
     required this.text,
     this.size = 12,
     this.height = 1.2,
-    this.overFlow = TextOverflow.ellipsis,
+    //this.overFlow = TextOverflow.ellipsis,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      maxLines: 1,
-      overflow: overFlow,
+      //maxLines: 1,
+      //overflow: overFlow,
       style: TextStyle(
         color: color,
         fontFamily: 'Roboto',
-        fontSize: Dimensions.height12,
+        fontSize: Dimensions.fontsize12,
         height: Dimensions.height1dot2,
       ),
     );

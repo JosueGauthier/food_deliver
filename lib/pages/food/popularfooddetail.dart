@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_deliver/utils/dimensions.dart';
 import 'package:food_deliver/widget/app_column.dart';
 import 'package:food_deliver/widget/app_icon.dart';
+import 'package:food_deliver/widget/expandable_text_widget.dart';
 
 import '../../utils/colors.dart';
 import '../../widget/big_text.dart';
@@ -69,6 +70,16 @@ class PopularFoodDetail extends StatelessWidget {
                       height: Dimensions.height20,
                     ),
                     BigText(text: "Introduce"),
+                    SizedBox(
+                      height: Dimensions.height20,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: ExpandableTextWidget(
+                            text:
+                                "La nébuleuse de Gum (ou Gum 12) est une énorme nébuleuse diffuse, la plus importante vue de la Terre même si elle est difficile à distinguer sans appareillagespécifique. C'est le douzième objet céleste décrit dans le catalogue de Colin Stanley Gum. Elle est située dans les Voiles de l'ancienne constellation du Navire Argo, une constellation visible principalement dans l'hémisphère sud.Son centre est situé à environ 450 parsecs du Système solaire, soit d'environ 1 470 années-lumière.  La nébuleuse de Gum est une rémanence, probablement toujours en expansion, d'une ou plusieurs  supernovas, survenues il y a quelques millions d'années.La nébuleuse de Gum (ou Gum 12) est une énorme nébuleuse diffuse, la plus importante vue de la Terre même si elle est difficile à distinguer sans appareillagespécifique. C'est le douzième objet céleste décrit dans le catalogue de Colin Stanley Gum. Elle est située dans les Voiles de l'ancienne constellation du Navire Argo, une constellation visible principalement dans l'hémisphère sud.Son centre est situé à environ 450 parsecs du Système solaire, soit d'environ 1 470 années-lumière.  La nébuleuse de Gum est une rémanence, probablement toujours en expansion, d'une ou plusieurs  supernovas, survenues il y a quelques millions d'années."),
+                      ),
+                    )
                   ],
                 ))),
 

@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliver/utils/colors.dart';
 import 'package:food_deliver/utils/dimensions.dart';
+import 'package:food_deliver/widget/app_column.dart';
 import 'package:food_deliver/widget/big_text.dart';
 import 'package:food_deliver/widget/icon_and_text.dart';
 import 'package:food_deliver/widget/small_text.dart';
@@ -171,14 +172,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                         text: "Normal",
                                         iconcolor: Colors.amber),
                                     SizedBox(
-                                      width: Dimensions.width20,
+                                      width: 0,
                                     ),
                                     IconAndTextWidget(
                                         icon: Icons.location_pin,
                                         text: "1.7 km",
                                         iconcolor: AppColors.mainColor),
                                     SizedBox(
-                                      width: Dimensions.width20,
+                                      width: 0,
                                     ),
                                     IconAndTextWidget(
                                         icon: Icons.lock_clock,
@@ -261,70 +262,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     BoxShadow(color: Colors.white, offset: Offset(5, 0)),
                   ]),
               child: Container(
-                padding: EdgeInsets.only(
-                    top: Dimensions.height10,
-                    left: Dimensions.width15,
-                    right: Dimensions.width15),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BigText(text: "Chinese Pho"),
-                      SizedBox(
-                        height: Dimensions.height10,
-                      ),
-                      Row(
-                        children: [
-                          Wrap(
-                            children: List.generate(
-                                5,
-                                (index) => Icon(
-                                      Icons.star,
-                                      color: AppColors.mainColor,
-                                      size: 15,
-                                    )),
-                          ),
-                          SizedBox(
-                            width: Dimensions.width10,
-                          ),
-                          SmallText(text: "4.5"),
-                          SizedBox(
-                            width: Dimensions.width10,
-                          ),
-                          SmallText(text: "1287"),
-                          SizedBox(
-                            width: Dimensions.width10,
-                          ),
-                          SmallText(text: "comments"),
-                        ],
-                      ),
-                      SizedBox(
-                        height: Dimensions.height20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconAndTextWidget(
-                              icon: Icons.circle,
-                              text: "Normal",
-                              iconcolor: Colors.amber),
-                          SizedBox(
-                            width: Dimensions.width20,
-                          ),
-                          IconAndTextWidget(
-                              icon: Icons.location_pin,
-                              text: "1.7 km",
-                              iconcolor: AppColors.mainColor),
-                          SizedBox(
-                            width: Dimensions.width20,
-                          ),
-                          IconAndTextWidget(
-                              icon: Icons.lock_clock,
-                              text: "16 min",
-                              iconcolor: Colors.pink),
-                        ],
-                      )
-                    ]),
-              ),
+                  padding: EdgeInsets.only(
+                      top: Dimensions.height10,
+                      left: Dimensions.width15,
+                      right: Dimensions.width15),
+                  child: AppColumn(titletext: "Chinese side")),
             ),
           ),
         ],

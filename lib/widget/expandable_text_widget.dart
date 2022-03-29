@@ -42,7 +42,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
           : Column(
               children: [
                 SmallText(
-                    size: Dimensions.height15,
+                    size: Dimensions.height20,
                     height: 1.8,
                     color: AppColors.paraColor,
                     text: hiddenText

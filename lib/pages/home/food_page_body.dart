@@ -134,9 +134,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       //? expanded widget force container to take all the available space
                       Expanded(
                         child: Container(
-                          height: Dimensions.listviewTextHeigth,
+                          height: Dimensions.listviewTextHeigth + 10,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 255, 255, 255),
                               borderRadius: BorderRadius.only(
                                   topRight:
                                       Radius.circular(Dimensions.height20),
@@ -159,7 +159,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                 ),
                                 SmallText(
                                     text:
-                                        "The Gum Nebula (Gum 12) is an emission nebula that extends across 36° in the southern"),
+                                        "The Gum Nebula (Gum 12) is an emission nebula that extends across "),
                                 SizedBox(
                                   height: Dimensions.height10,
                                 ),

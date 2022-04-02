@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_deliver/routes/route_helper.dart';
 import 'package:food_deliver/utils/colors.dart';
 import 'package:food_deliver/utils/dimensions.dart';
 import 'package:food_deliver/widget/app_icon.dart';
 import 'package:food_deliver/widget/big_text.dart';
 import 'package:food_deliver/widget/expandable_text_widget.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
   const RecommendedFoodDetail({Key? key}) : super(key: key);
@@ -17,11 +19,16 @@ class RecommendedFoodDetail extends StatelessWidget {
         shrinkWrap: true,
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 80,
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(iconData: Icons.close),
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getInitial());
+                      },
+                      child: AppIcon(iconData: Icons.close)),
                   AppIcon(iconData: Icons.shopping_bag_sharp)
                 ]),
             bottom: PreferredSize(

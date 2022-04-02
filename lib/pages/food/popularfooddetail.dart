@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:food_deliver/pages/home/main_full_page.dart';
 import 'package:food_deliver/utils/dimensions.dart';
 import 'package:food_deliver/widget/app_column.dart';
 import 'package:food_deliver/widget/app_icon.dart';
 import 'package:food_deliver/widget/expandable_text_widget.dart';
+import 'package:get/get.dart';
 
+import '../../controllers/popular_product_controller.dart';
+import '../../models/Popular_product_model.dart';
 import '../../utils/colors.dart';
 import '../../widget/big_text.dart';
 import '../../widget/icon_and_text.dart';
 import '../../widget/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  int pageId;
+  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key) {}
 
   @override
   Widget build(BuildContext context) {
+    ProductModel product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+
+    //print("pageid is " + pageId.toString());
+
+    //print("productname is " + product.name.toString());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
@@ -38,7 +50,11 @@ class PopularFoodDetail extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppIcon(iconData: Icons.arrow_back),
+              GestureDetector(
+                  onTap: () {
+                    Get.to(() => MainFoodPage());
+                  },
+                  child: AppIcon(iconData: Icons.arrow_back)),
               AppIcon(iconData: Icons.shopping_bag)
             ],
           ),
@@ -64,7 +80,7 @@ class PopularFoodDetail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppColumn(
-                      titletext: "Chang",
+                      titletext: product.name!,
                     ),
                     SizedBox(
                       height: Dimensions.height20,

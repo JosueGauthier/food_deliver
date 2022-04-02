@@ -18,9 +18,10 @@ class ApiClient extends GetConnect implements GetxService {
   Future<Response> getData(
     String uri,
   ) async {
+    String url = baseUrl! + uri;
+    print(url);
     try {
       Response response = await get(uri);
-      print("etrr");
       return response;
     } catch (e) {
       return Response(statusCode: 1, statusText: e.toString());

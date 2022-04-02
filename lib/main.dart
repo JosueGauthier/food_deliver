@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_deliver/controllers/popular_product_controller.dart';
 import 'package:food_deliver/pages/food/popularfooddetail.dart';
 import 'package:food_deliver/pages/food/recommended_food_detail.dart';
+import 'package:food_deliver/pages/home/food_page_body.dart';
 import 'package:food_deliver/pages/home/main_full_page.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;

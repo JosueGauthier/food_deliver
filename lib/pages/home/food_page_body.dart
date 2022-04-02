@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliver/controllers/popular_product_controller.dart';
+import 'package:food_deliver/controllers/recommended_product_controller.dart';
 import 'package:food_deliver/models/Popular_product_model.dart';
 import 'package:food_deliver/utils/app_constats.dart';
 import 'package:food_deliver/utils/colors.dart';
@@ -93,7 +94,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           );
         }),
 
-        //!Popular items
+        //!Recommended items
         SizedBox(
           height: Dimensions.height20,
         ),
@@ -126,100 +127,114 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: Dimensions.height10,
         ),
 
-        ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.width20,
-                    right: Dimensions.width20,
-                    bottom: Dimensions.height15),
-                child: Row(
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      //! image section
-                      Container(
-                        height: Dimensions.listviewimgSize,
-                        width: Dimensions.listviewimgSize,
-                        decoration: BoxDecoration(
-                            color: Colors.amber,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage("assets/image/food0.png")),
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.width20)),
-                      ),
-
-                      //! text section
-
-                      //? expanded widget force container to take all the available space
-                      Expanded(
-                        child: Container(
-                          height: Dimensions.listviewTextHeigth + 10,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.only(
-                                  topRight:
-                                      Radius.circular(Dimensions.height20),
-                                  bottomRight:
-                                      Radius.circular(Dimensions.height20))),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: Dimensions.width10,
-                                right: Dimensions.width10),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
-                                BigText(
-                                  text:
-                                      "Nutritious fruit from Radjastan all demand is accepted",
-                                  size: Dimensions.height25,
-                                ),
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
-                                SmallText(
-                                    text:
-                                        "The Gum Nebula (Gum 12) is an emission nebula that extends across "),
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconAndTextWidget(
-                                        icon: Icons.circle,
-                                        text: "Normal",
-                                        iconcolor: Colors.amber),
-                                    SizedBox(
-                                      width: 0,
-                                    ),
-                                    IconAndTextWidget(
-                                        icon: Icons.location_pin,
-                                        text: "1.7 km",
-                                        iconcolor: AppColors.mainColor),
-                                    SizedBox(
-                                      width: 0,
-                                    ),
-                                    IconAndTextWidget(
-                                        icon: Icons.lock_clock,
-                                        text: "16 min",
-                                        iconcolor: Colors.pink),
-                                  ],
-                                )
-                              ],
+        GetBuilder<RecommendedProductController>(
+            builder: (recommendedProductController) {
+          return recommendedProductController.isLoaded
+              ? ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: recommendedProductController
+                      .recommendedProductList.length,
+                  itemBuilder: (context, index) {
+                    ProductModel recommendedProduct =
+                        recommendedProductController
+                            .recommendedProductList[index];
+                    return Container(
+                      margin: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                          bottom: Dimensions.height15),
+                      child: Row(
+                          //crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            //! image section
+                            Container(
+                              height: Dimensions.listviewimgSize,
+                              width: Dimensions.listviewimgSize,
+                              decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(AppConstats.BASE_URL +
+                                        AppConstats.UPLOAD_URL +
+                                        recommendedProduct.img!),
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.width20)),
                             ),
-                          ),
-                        ),
-                      )
-                    ]),
-              );
-            }),
+
+                            //! text section
+
+                            //? expanded widget force container to take all the available space
+                            Expanded(
+                              child: Container(
+                                height: Dimensions.listviewTextHeigth + 10,
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(
+                                            Dimensions.height20),
+                                        bottomRight: Radius.circular(
+                                            Dimensions.height20))),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: Dimensions.width10,
+                                      right: Dimensions.width10),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: Dimensions.height10,
+                                      ),
+                                      BigText(
+                                        text:
+                                            "Nutritious fruit from Radjastan all demand is accepted",
+                                        size: Dimensions.height25,
+                                      ),
+                                      SizedBox(
+                                        height: Dimensions.height10,
+                                      ),
+                                      SmallText(
+                                          text:
+                                              "The Gum Nebula (Gum 12) is an emission nebula that extends across "),
+                                      SizedBox(
+                                        height: Dimensions.height10,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconAndTextWidget(
+                                              icon: Icons.circle,
+                                              text: "Normal",
+                                              iconcolor: Colors.amber),
+                                          SizedBox(
+                                            width: 0,
+                                          ),
+                                          IconAndTextWidget(
+                                              icon: Icons.location_pin,
+                                              text: "1.7 km",
+                                              iconcolor: AppColors.mainColor),
+                                          SizedBox(
+                                            width: 0,
+                                          ),
+                                          IconAndTextWidget(
+                                              icon: Icons.lock_clock,
+                                              text: "16 min",
+                                              iconcolor: Colors.pink),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]),
+                    );
+                  })
+              : CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                );
+        })
       ],
     );
   }
@@ -265,7 +280,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 //color: position.isEven ? Colors.red : Colors.amber,
                 image: DecorationImage(
                     image: NetworkImage(AppConstats.BASE_URL +
-                        "/uploads/" +
+                        AppConstats.UPLOAD_URL +
                         popularProduct.img!),
                     fit: BoxFit.cover)),
           ),

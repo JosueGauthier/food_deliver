@@ -11,7 +11,7 @@ class RecommendedProductController extends GetxController {
 
   List<dynamic> _RecommendedProductList = [];
 
-  List<dynamic> get popularProductList => _RecommendedProductList;
+  List<dynamic> get recommendedProductList => _RecommendedProductList;
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
@@ -24,7 +24,7 @@ class RecommendedProductController extends GetxController {
     if (response.statusCode == 200) {
       _RecommendedProductList = [];
       _RecommendedProductList.addAll(Product.fromJson(response.body).products);
-      print(popularProductList);
+      print(recommendedProductList);
       _isLoaded = true;
 
       update();

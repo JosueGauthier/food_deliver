@@ -130,6 +130,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: Dimensions.height10,
         ),
 
+        //! recommended food scroll view
         GetBuilder<RecommendedProductController>(
             builder: (recommendedProductController) {
           return recommendedProductController.isLoaded
@@ -144,7 +145,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             .recommendedProductList[index];
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed(RouteHelper.recommendedFood);
+                        Get.toNamed(RouteHelper.getRecommendedFood(index));
                       },
                       child: Container(
                         margin: EdgeInsets.only(

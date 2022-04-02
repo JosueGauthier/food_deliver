@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_deliver/controllers/recommended_product_controller.dart';
+import 'package:food_deliver/models/Popular_product_model.dart';
 import 'package:food_deliver/routes/route_helper.dart';
+import 'package:food_deliver/utils/app_constats.dart';
 import 'package:food_deliver/utils/colors.dart';
 import 'package:food_deliver/utils/dimensions.dart';
 import 'package:food_deliver/widget/app_icon.dart';
@@ -9,10 +12,15 @@ import 'package:food_deliver/widget/expandable_text_widget.dart';
 import 'package:get/get.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+  const RecommendedFoodDetail({Key? key, required this.pageId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ProductModel product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -54,7 +62,9 @@ class RecommendedFoodDetail extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               //title: Text("title"),
               background: Image(
-                  image: AssetImage("assets/image/food0.png"),
+                  image: NetworkImage(AppConstats.BASE_URL +
+                      AppConstats.UPLOAD_URL +
+                      product.img!),
                   fit: BoxFit.cover),
             ),
           ),
@@ -62,12 +72,9 @@ class RecommendedFoodDetail extends StatelessWidget {
               child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.width20, right: Dimensions.width20),
-                child: ExpandableTextWidget(
-                    text:
-                        "La nébuleuse de Gum (ou Gum 12) est une énorme nébuleuse diffuse, la plus importante vue de la Terre même si elle est difficile à distinguer sans appareillagespécifique. C'est le douzième objet céleste décrit dans le catalogue de Colin Stanley Gum. Elle est située dans les Voiles de l'ancienne constellation du Navire Argo, une constellation visible principalement dans l'hémisphère sud.Son centre est situé à environ 450 parsecs du Système solaire, soit d'environ 1 470 années-lumière.  La nébuleuse de Gum est une rémanence, probablement toujours en expansion, d'une ou plusieurs  supernovas, survenues il y a quelques millions d'années.La nébuleuse de Gum (ou Gum 12) est une énorme nébuleuse diffuse, la plus importante vue de la Terre même si elle est difficile à distinguer sans appareillagespécifique. C'est le douzième objet céleste décrit dans le catalogue de Colin Stanley Gum. Elle est située dans les Voiles de l'ancienne constellation du Navire Argo, une constellation visible principalement dans l'hémisphère sud.Son centre est situé à environ 450 parsecs du Système solaire, soit d'environ 1 470 années-lumière.  La nébuleuse de Gum est une rémanence, probablement toujours en expansion, d'une ou plusieurs  supernovas, survenues il y a quelques millions d'annéesla plus importante vue de la Terre même si elle est difficile à distinguer sans appareillagespécifique. C'est le douzième objet céleste décrit dans le catalogue de Colin Stanley Gum. Elle est située dans les Voiles de l'ancienne constellation du Navire Argo, une constellation visible principalement dans l'hémisphère sud.Son centre est situé à environ 450 parsecs du Système solaire, soit d'environ 1 470 années-lumière.  La nébuleuse de Gum est une rémanence, probablement toujours en expansion, d'une ou plusieurs  supernovas, survenues il y a quelques millions d'années."),
-              )
+                  margin: EdgeInsets.only(
+                      left: Dimensions.width20, right: Dimensions.width20),
+                  child: ExpandableTextWidget(text: product.description!))
             ],
           )),
         ],
@@ -89,7 +96,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 iconSize: 30,
               ),
               BigText(
-                text: "\$ 12.88  x  0",
+                text: "\$ ${product.price}  x  0",
                 color: AppColors.mainBlackColor,
               ),
               AppIcon(

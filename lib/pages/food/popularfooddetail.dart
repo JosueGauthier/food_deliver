@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliver/pages/home/main_full_page.dart';
+import 'package:food_deliver/utils/app_constats.dart';
 import 'package:food_deliver/utils/dimensions.dart';
 import 'package:food_deliver/widget/app_column.dart';
 import 'package:food_deliver/widget/app_icon.dart';
@@ -14,8 +15,8 @@ import '../../widget/icon_and_text.dart';
 import '../../widget/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  int pageId;
-  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key) {}
+  final int pageId;
+  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,9 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("assets/image/food0.png"))),
+                      image: NetworkImage(AppConstats.BASE_URL +
+                          AppConstats.UPLOAD_URL +
+                          product.img!))),
             )),
 
         //! icon widget
@@ -90,12 +93,9 @@ class PopularFoodDetail extends StatelessWidget {
                       height: Dimensions.height20,
                     ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: ExpandableTextWidget(
-                            text:
-                                "La nébuleuse de Gum (ou Gum 12) est une énorme nébuleuse diffuse, la plus importante vue de la Terre même si elle est difficile à distinguer sans appareillagespécifique. C'est le douzième objet céleste décrit dans le catalogue de Colin Stanley Gum. Elle est située dans les Voiles de l'ancienne constellation du Navire Argo, une constellation visible principalement dans l'hémisphère sud.Son centre est situé à environ 450 parsecs du Système solaire, soit d'environ 1 470 années-lumière.  La nébuleuse de Gum est une rémanence, probablement toujours en expansion, d'une ou plusieurs  supernovas, survenues il y a quelques millions d'années.La nébuleuse de Gum (ou Gum 12) est une énorme nébuleuse diffuse, la plus importante vue de la Terre même si elle est difficile à distinguer sans appareillagespécifique. C'est le douzième objet céleste décrit dans le catalogue de Colin Stanley Gum. Elle est située dans les Voiles de l'ancienne constellation du Navire Argo, une constellation visible principalement dans l'hémisphère sud.Son centre est situé à environ 450 parsecs du Système solaire, soit d'environ 1 470 années-lumière.  La nébuleuse de Gum est une rémanence, probablement toujours en expansion, d'une ou plusieurs  supernovas, survenues il y a quelques millions d'années."),
-                      ),
-                    )
+                        child: SingleChildScrollView(
+                      child: ExpandableTextWidget(text: product.description!),
+                    ))
                   ],
                 ))),
 
@@ -159,7 +159,8 @@ class PopularFoodDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 BigText(
-                  text: "\$ 10 Add to cart",
+                  size: Dimensions.height30,
+                  text: "\$ ${product.price!} Add to cart",
                   color: Colors.white,
                 ),
               ],

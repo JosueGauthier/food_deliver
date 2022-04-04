@@ -44,7 +44,7 @@ class RecommendedFoodDetail extends StatelessWidget {
               child: Container(
                 child: Center(
                     child: BigText(
-                  text: "Rodomodo",
+                  text: product.name!,
                   size: Dimensions.height30,
                 )),
                 width: double.maxFinite,

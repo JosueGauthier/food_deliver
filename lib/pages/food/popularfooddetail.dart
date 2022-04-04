@@ -198,30 +198,31 @@ class PopularFoodDetail extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(
-                          top: Dimensions.height20,
-                          bottom: Dimensions.height20,
-                          left: Dimensions.width20,
-                          right: Dimensions.width20),
-                      decoration: BoxDecoration(
-                          color: AppColors.mainColor,
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              popularProductController.popular_addItem(product);
-                            },
-                            child: BigText(
+                    GestureDetector(
+                      onTap: () {
+                        popularProductController.popular_addItem(product);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            top: Dimensions.height20,
+                            bottom: Dimensions.height20,
+                            left: Dimensions.width20,
+                            right: Dimensions.width20),
+                        decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius20)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            BigText(
                               size: Dimensions.height25,
-                              text: "\$ ${product.price!} Add to cart",
+                              text:
+                                  "\$ ${product.price! * popularProductController.inCartItem} | Add to cart",
                               color: Colors.white,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     )
                   ]),

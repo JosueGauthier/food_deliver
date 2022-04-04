@@ -51,4 +51,26 @@ class CartController extends GetxController {
       });
     }
   }
+
+  bool existinCart(ProductModel aProduct) {
+    if (_items.containsKey(aProduct.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  int getQuantity(ProductModel aProduct) {
+    var quantity = 0;
+
+    if (_items.containsKey(aProduct.id)) {
+      _items.forEach((key, value) {
+        if (key == aProduct.id) {
+          quantity = value.quantity!;
+        }
+      });
+    }
+
+    return quantity;
+  }
 }

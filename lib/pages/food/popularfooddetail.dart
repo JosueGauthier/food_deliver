@@ -25,7 +25,7 @@ class PopularFoodDetail extends StatelessWidget {
         Get.find<PopularProductController>().popularProductList[pageId];
 
     Get.find<PopularProductController>()
-        .initProduct(Get.find<CartController>());
+        .initProduct(product, Get.find<CartController>());
 
     //print("pageid is " + pageId.toString());
 
@@ -150,8 +150,8 @@ class PopularFoodDetail extends StatelessWidget {
                           ),
                           BigText(
                               size: Dimensions.height25,
-                              text:
-                                  popularProductController.quantity.toString()),
+                              text: popularProductController.inCartItem
+                                  .toString()),
                           SizedBox(
                             width: Dimensions.width10,
                           ),

@@ -50,18 +50,18 @@ class PopularProductController extends GetxController {
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
       _quantity = checkQuantity(_quantity + 1);
-    } else {
+    } else if (isIncrement == false && _quantity > 0) {
       _quantity = checkQuantity(_quantity - 1);
     }
     update();
   }
 
   int checkQuantity(int qquantity) {
-    if (qquantity < 0) {
+    if ((_incartItem + quantity) < 0) {
       Get.snackbar("Item count", "You can't reduce more !",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
       return 0;
-    } else if (qquantity > 20) {
+    } else if ((_incartItem + quantity) > 20) {
       Get.snackbar("Item count", "You can't add more ! ",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
       return 20;
@@ -70,14 +70,22 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct(CartController cartController) {
+  void initProduct(ProductModel aProduct, CartController cartController) {
     _quantity = 0;
 
     _incartItem = 0;
-
+    // get from storage
     _cartController = cartController;
 
-    // get from storage
+    var exist = false;
+    exist = _cartController.existinCart(aProduct);
+
+    print("does it exist ? " + exist.toString());
+
+    if (exist) {
+      _incartItem = _cartController.getQuantity(aProduct);
+    }
+    print("the quantity in the item cart is " + _incartItem.toString());
   }
 
   void popular_addItem(ProductModel productModel) {

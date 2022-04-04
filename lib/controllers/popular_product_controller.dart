@@ -5,6 +5,8 @@ import 'package:food_deliver/models/Popular_product_model.dart';
 import 'package:food_deliver/utils/colors.dart';
 import 'package:get/get.dart';
 
+import '../models/cart_product_model.dart';
+
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
 
@@ -32,7 +34,7 @@ class PopularProductController extends GetxController {
 
   int _incartItem = 0;
 
-  int get inCartItem => _incartItem + _quantity;
+  int get inCartItem => _quantity;
 
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
@@ -50,22 +52,22 @@ class PopularProductController extends GetxController {
   }
 
   void setQuantity(bool isIncrement) {
-    print(_quantity + _incartItem);
+    print(_quantity);
 
     if (isIncrement) {
       _quantity = checkQuantity(_quantity + 1);
-    } else if (isIncrement == false && (_quantity + _incartItem) > 0) {
+    } else if (isIncrement == false && (_quantity) > 0) {
       _quantity = checkQuantity(_quantity - 1);
     }
     update();
   }
 
   int checkQuantity(int qquantity) {
-    if ((_incartItem + quantity) < 0) {
+    if ((qquantity) < 0) {
       Get.snackbar("Item count", "You can't reduce more !",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
       return 0;
-    } else if ((_incartItem + quantity) > 20) {
+    } else if ((qquantity) > 20) {
       Get.snackbar("Item count", "You can't add more ! ",
           backgroundColor: AppColors.mainColor, colorText: Colors.white);
       return 20;
@@ -94,9 +96,9 @@ class PopularProductController extends GetxController {
   }
 
   void popular_addItem(ProductModel productModel) {
-    if ((_quantity + _incartItem) > 0) {
-      _cartController.addItem(productModel, (_quantity + _incartItem));
-      //_quantity = 0;
+    if ((_quantity) > 0) {
+      _cartController.addItem(productModel, (_quantity));
+      _quantity = 0;
       _cartController.items.forEach((key, value) {
         print("the id is " +
             value.id.toString() +
@@ -104,20 +106,19 @@ class PopularProductController extends GetxController {
             value.quantity.toString());
       });
     } else {
-      if (_cartController.existinCart(productModel) == true) {
-        _cartController.removeItem(productModel);
-        Get.snackbar("Item removed", "Your item has been removed",
-            backgroundColor: AppColors.mainColor, colorText: Colors.white);
-      } else {
-        Get.snackbar(
-            "Item count", "You should at least add one item to the cart !",
-            backgroundColor: AppColors.mainColor, colorText: Colors.white);
-      }
+      Get.snackbar(
+          "Item count", "You should at least add one item to the cart !",
+          backgroundColor: AppColors.mainColor, colorText: Colors.white);
     }
+
     update();
   }
 
   int get totalItems {
     return _cartController.totalItems;
+  }
+
+  List<CartModel> get getItems {
+    return _cartController.getItems;
   }
 }

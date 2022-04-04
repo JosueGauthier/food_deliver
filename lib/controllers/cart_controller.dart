@@ -16,15 +16,31 @@ class CartController extends GetxController {
   void addItem(ProductModel productModel, int quantity) {
     if (_items.containsKey(productModel.id!)) {
       _items.update(productModel.id!, (value) {
-        return CartModel(
-          id: value.id,
-          name: value.name,
-          price: value.price,
-          img: value.img,
-          quantity: quantity,
-          isExist: true,
-          time: DateTime.now().toString(),
-        );
+        if ((value.quantity! + quantity) > 0) {
+          return CartModel(
+            id: value.id,
+            name: value.name,
+            price: value.price,
+            img: value.img,
+            quantity: value.quantity! + quantity,
+            isExist: true,
+            time: DateTime.now().toString(),
+            aProduct: productModel,
+          );
+        } else {
+          // _items.remove(productModel.id!);
+
+          return CartModel(
+            id: value.id,
+            name: value.name,
+            price: value.price,
+            img: value.img,
+            quantity: 0,
+            isExist: true,
+            time: DateTime.now().toString(),
+            aProduct: productModel,
+          );
+        }
       });
     } else {
       // print("length of the item is " + _items.length.toString());
@@ -47,9 +63,12 @@ class CartController extends GetxController {
           quantity: quantity,
           isExist: true,
           time: DateTime.now().toString(),
+          aProduct: productModel,
         );
       });
     }
+
+    update();
   }
 
   void removeItem(ProductModel productModel) {
@@ -88,5 +107,12 @@ class CartController extends GetxController {
     });
 
     return totalQuantity;
+  }
+
+  List<CartModel> get getItems {
+    //? e est un item de cartModel avec int, CartModel
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
   }
 }

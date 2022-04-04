@@ -26,6 +26,8 @@ class PopularProductController extends GetxController {
 
   int _quantity = 0;
 
+  int _totalquantity = 0;
+
   int get quantity => _quantity;
 
   int _incartItem = 0;
@@ -48,9 +50,11 @@ class PopularProductController extends GetxController {
   }
 
   void setQuantity(bool isIncrement) {
+    print(_quantity + _incartItem);
+
     if (isIncrement) {
       _quantity = checkQuantity(_quantity + 1);
-    } else if (isIncrement == false && _quantity > 0) {
+    } else if (isIncrement == false && (_quantity + _incartItem) > 0) {
       _quantity = checkQuantity(_quantity - 1);
     }
     update();
@@ -83,14 +87,15 @@ class PopularProductController extends GetxController {
     print("does it exist ? " + exist.toString());
 
     if (exist) {
+      _quantity = _quantity + _incartItem;
       _incartItem = _cartController.getQuantity(aProduct);
     }
     print("the quantity in the item cart is " + _incartItem.toString());
   }
 
   void popular_addItem(ProductModel productModel) {
-    if (_quantity > 0) {
-      _cartController.addItem(productModel, _quantity);
+    if ((_quantity + _incartItem) > 0) {
+      _cartController.addItem(productModel, (_quantity + _incartItem));
       //_quantity = 0;
       _cartController.items.forEach((key, value) {
         print("the id is " +
@@ -99,9 +104,20 @@ class PopularProductController extends GetxController {
             value.quantity.toString());
       });
     } else {
-      Get.snackbar(
-          "Item count", "You should at least add one item to the cart !",
-          backgroundColor: AppColors.mainColor, colorText: Colors.white);
+      if (_cartController.existinCart(productModel) == true) {
+        _cartController.removeItem(productModel);
+        Get.snackbar("Item removed", "Your item has been removed",
+            backgroundColor: AppColors.mainColor, colorText: Colors.white);
+      } else {
+        Get.snackbar(
+            "Item count", "You should at least add one item to the cart !",
+            backgroundColor: AppColors.mainColor, colorText: Colors.white);
+      }
     }
+    update();
+  }
+
+  int get totalItems {
+    return _cartController.totalItems;
   }
 }

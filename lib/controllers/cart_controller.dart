@@ -52,6 +52,12 @@ class CartController extends GetxController {
     }
   }
 
+  void removeItem(ProductModel productModel) {
+    if (_items.containsKey(productModel.id!)) {
+      _items.remove(productModel.id!);
+    }
+  }
+
   bool existinCart(ProductModel aProduct) {
     if (_items.containsKey(aProduct.id)) {
       return true;
@@ -72,5 +78,15 @@ class CartController extends GetxController {
     }
 
     return quantity;
+  }
+
+  int get totalItems {
+    int totalQuantity = 0;
+
+    _items.forEach((key, value) {
+      totalQuantity += value.quantity!;
+    });
+
+    return totalQuantity;
   }
 }

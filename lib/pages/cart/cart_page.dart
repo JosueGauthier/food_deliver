@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliver/controllers/cart_controller.dart';
+import 'package:food_deliver/controllers/popular_product_controller.dart';
+import 'package:food_deliver/controllers/recommended_product_controller.dart';
 import 'package:food_deliver/pages/home/main_full_page.dart';
 import 'package:food_deliver/utils/colors.dart';
 import 'package:food_deliver/utils/dimensions.dart';
@@ -72,27 +74,54 @@ class CartPage extends StatelessWidget {
                             itemBuilder: ((context, index) {
                               return Container(
                                 width: double.maxFinite,
-                                height: 100,
+                                height: Dimensions.height20 * 7,
                                 //color: Colors.greenAccent,
                                 margin: EdgeInsets.only(
                                     bottom: Dimensions.height20),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      width: Dimensions.width20 * 5,
-                                      height: Dimensions.width20 * 5,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  AppConstats.BASE_URL +
-                                                      AppConstats.UPLOAD_URL +
-                                                      cartController
-                                                          .getItems[index]
-                                                          .img!)),
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(
-                                              Dimensions.radius20)),
+                                    GestureDetector(
+                                      onTap: () {
+                                        int popularIndex =
+                                            Get.find<PopularProductController>()
+                                                .popularProductList
+                                                .indexOf(
+                                                    _cartList[index].aProduct);
+
+                                        print(popularIndex);
+                                        if (popularIndex >= 0) {
+                                          Get.toNamed(
+                                              RouteHelper.getPopularFood(
+                                                  popularIndex, "cartpage"));
+                                        } else {
+                                          int recommendedIndex = Get.find<
+                                                  RecommendedProductController>()
+                                              .recommendedProductList
+                                              .indexOf(
+                                                  _cartList[index].aProduct);
+
+                                          Get.toNamed(
+                                              RouteHelper.getRecommendedFood(
+                                                  recommendedIndex,
+                                                  "cartpage"));
+                                        }
+                                      },
+                                      child: Container(
+                                        width: Dimensions.width20 * 5,
+                                        height: Dimensions.width20 * 5,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    AppConstats.BASE_URL +
+                                                        AppConstats.UPLOAD_URL +
+                                                        cartController
+                                                            .getItems[index]
+                                                            .img!)),
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radius20)),
+                                      ),
                                     ),
                                     SizedBox(
                                       width: Dimensions.width10,

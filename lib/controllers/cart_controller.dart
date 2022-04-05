@@ -28,8 +28,6 @@ class CartController extends GetxController {
             aProduct: productModel,
           );
         } else {
-          // _items.remove(productModel.id!);
-
           return CartModel(
             id: value.id,
             name: value.name,
@@ -66,6 +64,10 @@ class CartController extends GetxController {
           aProduct: productModel,
         );
       });
+    }
+
+    if (_items[productModel.id]?.quantity! == 0) {
+      _items.remove(productModel.id!);
     }
 
     update();

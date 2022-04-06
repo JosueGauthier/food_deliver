@@ -46,6 +46,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     // TODO: implement dispose
 
     pageController.dispose();
+    super.dispose();
   }
 
   @override

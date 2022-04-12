@@ -126,11 +126,11 @@ class _HomePageState extends State<HomePage> {
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle:
-          NavBarStyle.style1, // Choose the nav bar style with this property.
+          NavBarStyle.style9, // Choose the nav bar style with this property.
     );
   }
 
-  //! under std bottom nav bar
+  //! under is :  std bottom nav bar
 
   /* @override
   Widget build(BuildContext context) {

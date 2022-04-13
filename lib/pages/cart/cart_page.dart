@@ -14,7 +14,11 @@ import '../../routes/route_helper.dart';
 import '../../utils/app_constats.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({Key? key}) : super(key: key);
+  final String pagefrom;
+  final int pageId;
+
+  const CartPage({Key? key, required this.pageId, required this.pagefrom})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +32,31 @@ class CartPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppIcon(
-                      iconData: Icons.arrow_back,
-                      iconColor: Colors.white,
-                      backgroundColor: AppColors.mainColor,
-                      size: Dimensions.height45,
+                    GestureDetector(
+                      onTap: () {
+                        if (pagefrom == "recommended_page") {
+                          Get.toNamed(RouteHelper.getRecommendedFood(
+                              pageId, "cartpage"));
+                        } else if (pagefrom == "popular_page") {
+                          Get.toNamed(
+                              RouteHelper.getPopularFood(pageId, "cartpage"));
+                        } else {
+                          Get.toNamed(RouteHelper.getInitial());
+                        }
+                      },
+                      child: AppIcon(
+                        iconData: Icons.arrow_back,
+                        iconColor: Colors.white,
+                        backgroundColor: AppColors.mainColor,
+                        size: Dimensions.height45,
+                      ),
                     ),
                     SizedBox(
                       width: Dimensions.width45 * 1.3,
                     ),
                     GestureDetector(
                       onTap: () {
+                        //print("tapped");
                         Get.toNamed(RouteHelper.getInitial());
                       },
                       child: AppIcon(
@@ -75,7 +93,7 @@ class CartPage extends StatelessWidget {
                                 return Container(
                                   width: double.maxFinite,
                                   height: Dimensions.height20 * 7,
-                                  //color: Colors.greenAccent,
+                                  color: Colors.greenAccent,
                                   margin: EdgeInsets.only(
                                       bottom: Dimensions.height20),
                                   child: Row(

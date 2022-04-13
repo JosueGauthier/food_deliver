@@ -1,7 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:food_deliver/utils/colors.dart';
-
-import '../utils/dimensions.dart';
 
 class SmallText extends StatelessWidget {
   Color? color;

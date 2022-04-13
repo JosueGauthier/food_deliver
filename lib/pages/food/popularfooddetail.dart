@@ -19,8 +19,8 @@ import '../../widget/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final int pageId;
-
   final String pagefrom;
+
   PopularFoodDetail({Key? key, required this.pageId, required this.pagefrom})
       : super(key: key);
 
@@ -65,7 +65,8 @@ class PopularFoodDetail extends StatelessWidget {
                 GestureDetector(
                     onTap: () {
                       if (pagefrom == "cartpage") {
-                        Get.toNamed(RouteHelper.getCartPage());
+                        Get.toNamed(
+                            RouteHelper.getCartPage(pageId, "popular_page"));
                       } else {
                         Get.toNamed(RouteHelper.getInitial());
                       }
@@ -75,7 +76,8 @@ class PopularFoodDetail extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       if (controller.totalItems >= 1) {
-                        Get.toNamed(RouteHelper.getCartPage());
+                        Get.toNamed(
+                            RouteHelper.getCartPage(pageId, "popular_page"));
                       }
                     },
                     child: Stack(

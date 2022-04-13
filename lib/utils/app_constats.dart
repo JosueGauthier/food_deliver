@@ -10,4 +10,8 @@ class AppConstats {
   static const String UPLOAD_URL = "/uploads/";
 
   static const String TOKEN = "DBToken";
+
+  static const String CART_LIST = "Cart-list";
+
+  static const String CART_HISTORY_LIST = "Cart-history-list";
 }

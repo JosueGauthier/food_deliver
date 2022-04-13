@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
     */
 
     animation = new CurvedAnimation(
-        parent: animationController, curve: Curves.easeInOutQuint); //bounceOut
+        parent: animationController, curve: Curves.bounceOut); //bounceOut
 
     Timer(Duration(seconds: 3), (() => Get.offNamed(RouteHelper.getInitial())));
   }

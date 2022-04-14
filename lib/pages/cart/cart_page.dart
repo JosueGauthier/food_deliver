@@ -93,7 +93,7 @@ class CartPage extends StatelessWidget {
                                 return Container(
                                   width: double.maxFinite,
                                   height: Dimensions.height20 * 7,
-                                  color: Colors.greenAccent,
+                                  //color: Colors.greenAccent,
                                   margin: EdgeInsets.only(
                                       bottom: Dimensions.height20),
                                   child: Row(
@@ -107,10 +107,70 @@ class CartPage extends StatelessWidget {
                                                   _cartList[index].aProduct);
 
                                           print(popularIndex);
+
                                           if (popularIndex >= 0) {
                                             Get.toNamed(
                                                 RouteHelper.getPopularFood(
                                                     popularIndex, "cartpage"));
+                                          } else if (popularIndex == -1) {
+                                            if (_cartList[index]
+                                                    .aProduct!
+                                                    .typeId ==
+                                                2) {
+                                              var liste_des_produits_populaires =
+                                                  Get.find<
+                                                          PopularProductController>()
+                                                      .popularProductList;
+
+                                              var id_PopularProduct_du_produit_de_la_carteliste =
+                                                  _cartList[index].id!;
+
+                                              for (var j = 0;
+                                                  j <
+                                                      liste_des_produits_populaires
+                                                          .length;
+                                                  j++) {
+                                                if (liste_des_produits_populaires[
+                                                            j]
+                                                        .id ==
+                                                    id_PopularProduct_du_produit_de_la_carteliste) {
+                                                  var index_affichage = j;
+
+                                                  Get.toNamed(RouteHelper
+                                                      .getPopularFood(
+                                                          index_affichage,
+                                                          "cartpage"));
+                                                }
+                                              }
+                                            } else if (_cartList[index]
+                                                    .aProduct!
+                                                    .typeId ==
+                                                3) {
+                                              var liste_des_produits_reco =
+                                                  Get.find<
+                                                          RecommendedProductController>()
+                                                      .recommendedProductList;
+
+                                              var id_PopularProduct_du_produit_de_la_carteliste =
+                                                  _cartList[index].id!;
+
+                                              for (var j = 0;
+                                                  j <
+                                                      liste_des_produits_reco
+                                                          .length;
+                                                  j++) {
+                                                if (liste_des_produits_reco[j]
+                                                        .id ==
+                                                    id_PopularProduct_du_produit_de_la_carteliste) {
+                                                  var index_affichage = j;
+
+                                                  Get.toNamed(RouteHelper
+                                                      .getRecommendedFood(
+                                                          index_affichage,
+                                                          "cartpage"));
+                                                }
+                                              }
+                                            } else {}
                                           } else {
                                             int recommendedIndex = Get.find<
                                                     RecommendedProductController>()

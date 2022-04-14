@@ -17,6 +17,10 @@ class CartRepo {
   //! convertit le contenu du panier en une chaine de caractère json
 
   void addToCartList(List<CartModel> cartList) {
+    //! permet de retirer le contenu sauvegarder localement sur le telephone
+    //sharedPreferences.remove(AppConstats.CART_LIST);
+    //sharedPreferences.remove(AppConstats.CART_HISTORY_LIST);
+
     cart = [];
 
     var time = DateTime.now();
@@ -58,8 +62,7 @@ class CartRepo {
 
   void addToCartHistoryList() {
     if (sharedPreferences.containsKey(AppConstats.CART_HISTORY_LIST)) {
-      cartHistory =
-          sharedPreferences.getStringList(AppConstats.CART_HISTORY_LIST)!;
+      cartHistory = sharedPreferences.getStringList(AppConstats.CART_HISTORY_LIST)!;
     }
     for (int i = 0; i < cart.length; i++) {
       print("history list" + cart[i]);
@@ -80,13 +83,11 @@ class CartRepo {
   List<CartModel> getCartHistoryList() {
     if (sharedPreferences.containsKey(AppConstats.CART_HISTORY_LIST)) {
       //cartHistory = [];
-      cartHistory =
-          sharedPreferences.getStringList(AppConstats.CART_HISTORY_LIST)!;
+      cartHistory = sharedPreferences.getStringList(AppConstats.CART_HISTORY_LIST)!;
     }
 
     List<CartModel> cartListHistory = [];
-    cartHistory.forEach((element) =>
-        cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
+    cartHistory.forEach((element) => cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
     return cartListHistory;
   }
 }

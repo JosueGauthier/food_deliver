@@ -47,10 +47,7 @@ class CartController extends GetxController {
       // print("length of the item is " + _items.length.toString());
       //?ajoute si l'item n'existe pas encore
       _items.putIfAbsent(productModel.id!, () {
-        print("add item to cart " +
-            productModel.id!.toString() +
-            " quantity " +
-            quantity.toString());
+        print("add item to cart " + productModel.id!.toString() + " quantity " + quantity.toString());
 
         _items.forEach(((key, value) {
           print(value.name! + "quantity is " + value.quantity.toString());
@@ -163,5 +160,15 @@ class CartController extends GetxController {
 
   List<CartModel> getCartHistoryList() {
     return cartRepo.getCartHistoryList();
+  }
+
+  set setItems(Map<int, CartModel> setItems) {
+    _items = {};
+    _items = setItems;
+  }
+
+  void addToCartList() {
+    cartRepo.addToCartList(getItems);
+    update();
   }
 }

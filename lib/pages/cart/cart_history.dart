@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_deliver/controllers/cart_controller.dart';
+import 'package:food_deliver/models/cart_product_model.dart';
+import 'package:food_deliver/routes/route_helper.dart';
 import 'package:food_deliver/utils/app_constats.dart';
 import 'package:food_deliver/utils/colors.dart';
 import 'package:food_deliver/utils/dimensions.dart';
@@ -14,25 +18,27 @@ class CartHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var getCartHistoryList =
-        Get.find<CartController>().getCartHistoryList().reversed.toList();
+    var getCartHistoryList = Get.find<CartController>().getCartHistoryList().reversed.toList();
 
     Map<String, int> cartItemsPerOrder = Map();
 
     for (int i = 0; i < getCartHistoryList.length; i++) {
       if (cartItemsPerOrder.containsKey(getCartHistoryList[i].time)) {
-        cartItemsPerOrder.update(
-            getCartHistoryList[i].time!, (value) => ++value);
+        cartItemsPerOrder.update(getCartHistoryList[i].time!, (value) => ++value);
       } else {
         cartItemsPerOrder.putIfAbsent(getCartHistoryList[i].time!, () => 1);
       }
     }
 
-    List<int> cartOrderTimeToList() {
+    List<int> cartitemsPerOrderToList() {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
 
-    List<int> itemsPerOrder = cartOrderTimeToList();
+    List<String> cartorderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) => e.key).toList();
+    }
+
+    List<int> itemsPerOrder = cartitemsPerOrderToList();
 
     var listCounter = 0;
 
@@ -42,8 +48,7 @@ class CartHistory extends StatelessWidget {
           Container(
             height: Dimensions.height100 * 1,
             width: double.maxFinite,
-            padding: EdgeInsets.only(
-                top: Dimensions.height20, bottom: Dimensions.height10),
+            padding: EdgeInsets.only(top: Dimensions.height20, bottom: Dimensions.height10),
             color: AppColors.mainColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -53,19 +58,13 @@ class CartHistory extends StatelessWidget {
                   size: Dimensions.height30,
                   color: Colors.white,
                 ),
-                AppIcon(
-                    iconData: Icons.shopping_bag,
-                    iconColor: AppColors.mainColor,
-                    backgroundColor: Colors.white),
+                AppIcon(iconData: Icons.shopping_bag, iconColor: AppColors.mainColor, backgroundColor: Colors.white),
               ],
             ),
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(
-                  top: Dimensions.height20,
-                  left: Dimensions.width20,
-                  right: Dimensions.width20),
+              margin: EdgeInsets.only(top: Dimensions.height20, left: Dimensions.width20, right: Dimensions.width20),
               child: MediaQuery.removePadding(
                 removeTop: true,
                 context: context,
@@ -80,13 +79,9 @@ class CartHistory extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               (() {
-                                DateTime parseDate =
-                                    DateFormat("yyyy-MM-dd HH:mm:ss").parse(
-                                        getCartHistoryList[listCounter].time!);
-                                var output_format =
-                                    DateFormat("dd/MM/yyyy hh:mm a");
-                                var outputData =
-                                    output_format.format(parseDate);
+                                DateTime parseDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(getCartHistoryList[listCounter].time!);
+                                var output_format = DateFormat("dd/MM/yyyy hh:mm a");
+                                var outputData = output_format.format(parseDate);
                                 return BigText(
                                   text: outputData,
                                   size: Dimensions.height30 / 1.2,
@@ -96,15 +91,12 @@ class CartHistory extends StatelessWidget {
                                 height: Dimensions.height10,
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Wrap(
                                       direction: Axis.horizontal,
-                                      children: List.generate(itemsPerOrder[i],
-                                          (index) {
-                                        if (listCounter <
-                                            getCartHistoryList.length) {
+                                      children: List.generate(itemsPerOrder[i], (index) {
+                                        if (listCounter < getCartHistoryList.length) {
                                           listCounter++;
                                         }
                                         return index <= 2
@@ -116,62 +108,56 @@ class CartHistory extends StatelessWidget {
                                                 ),
                                                 decoration: BoxDecoration(
                                                     //color: Colors.redAccent,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            Dimensions
-                                                                    .height10 /
-                                                                1.5),
+                                                    borderRadius: BorderRadius.circular(Dimensions.height10 / 1.5),
                                                     image: DecorationImage(
                                                         fit: BoxFit.cover,
-                                                        image: NetworkImage(AppConstats
-                                                                .BASE_URL +
-                                                            AppConstats
-                                                                .UPLOAD_URL +
-                                                            getCartHistoryList[
-                                                                    listCounter -
-                                                                        1]
-                                                                .img!))),
+                                                        image: NetworkImage(
+                                                            AppConstats.BASE_URL + AppConstats.UPLOAD_URL + getCartHistoryList[listCounter - 1].img!))),
                                               )
                                             : Container();
                                       })),
                                   Container(
                                     //color: Colors.green,
                                     height: Dimensions.height20 * 5,
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          SmallText(
-                                              text: "Total",
-                                              color: AppColors.titleColor),
-                                          BigText(
-                                            text: itemsPerOrder[i].toString() +
-                                                " items",
+                                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.end, children: [
+                                      SmallText(text: "Total", color: AppColors.titleColor),
+                                      BigText(
+                                        text: itemsPerOrder[i].toString() + " items",
+                                        size: Dimensions.height20,
+                                        color: AppColors.titleColor,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          var orderTime = cartorderTimeToList();
+                                          Map<int, CartModel> moreOrder = {};
+                                          for (var j = 0; j < getCartHistoryList.length; j++) {
+                                            //print(j);
+                                            if (getCartHistoryList[j].time == orderTime[i]) {
+                                              //print("order time is" + orderTime[i]);
+                                              moreOrder.putIfAbsent(getCartHistoryList[j].id!, () {
+                                                return CartModel.fromJson(jsonDecode(jsonEncode(getCartHistoryList[j])));
+                                              });
+                                            }
+                                          }
+                                          Get.find<CartController>().setItems = moreOrder;
+
+                                          Get.find<CartController>().addToCartList();
+
+                                          Get.toNamed(RouteHelper.getCartPage(1, "cart-history"));
+                                        },
+                                        child: Container(
+                                          child: SmallText(
+                                            text: "One more",
                                             size: Dimensions.height20,
-                                            color: AppColors.titleColor,
+                                            color: AppColors.mainColor,
                                           ),
-                                          Container(
-                                            child: SmallText(
-                                              text: "One more",
-                                              size: Dimensions.height20,
-                                              color: AppColors.mainColor,
-                                            ),
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: Dimensions.width10,
-                                                vertical:
-                                                    Dimensions.height20 / 4),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    width: 1,
-                                                    color: AppColors.mainColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        Dimensions.height10 /
-                                                            1.5)),
-                                          )
-                                        ]),
+                                          padding: EdgeInsets.symmetric(horizontal: Dimensions.width10, vertical: Dimensions.height20 / 4),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(width: 1, color: AppColors.mainColor),
+                                              borderRadius: BorderRadius.circular(Dimensions.height10 / 1.5)),
+                                        ),
+                                      )
+                                    ]),
                                   )
                                 ],
                               )
